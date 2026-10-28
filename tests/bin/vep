@@ -1,0 +1,42 @@
+#!/usr/bin/env python3
+"""MOCK of Ensembl VEP for the MutaXplorer test suite ONLY (the real cache is ~15-25 GB).
+Adds a deterministic CSQ field so the annotation -> cohort report path can be tested."""
+import argparse, gzip, subprocess
+ap = argparse.ArgumentParser(); ap.add_argument("--input_file"); ap.add_argument("--output_file")
+a, _ = ap.parse_known_args()
+GENES = []   # must match tests/simulate_test_data.py: gene span = start .. start+7150
+for c, gl in {"chr1": [("KRAS", 10000), ("TP53", 40000), ("PIK3CA", 70000), ("EML4", 100000), ("PTEN", 140000), ("CDKN2A", 170000)],
+              "chr2": [("APC", 10000), ("ERBB2", 40000), ("MYC", 70000), ("BRCA2", 100000), ("NF1", 130000), ("CDH1", 160000)],
+              "chr3": [("ALK", 10000), ("EGFR", 40000), ("BRAF", 70000), ("SMAD4", 100000), ("ATM", 130000), ("RB1", 160000)]}.items():
+    GENES += [(c, s0, s0 + 7150, g) for g, s0 in gl]
+# population AF: read from the test gnomAD VCF when MUTAXPLORER_MOCK_GNOMAD is set (tests/run_tests.sh sets it)
+import os
+COMMON = {}
+if os.environ.get("MUTAXPLORER_MOCK_GNOMAD"):
+    with gzip.open(os.environ["MUTAXPLORER_MOCK_GNOMAD"], "rt") as gf:
+        for gl in gf:
+            if gl[0] != "#":
+                x = gl.split("\t"); COMMON[(x[0], int(x[1]))] = x[7].split("AF=")[1].split(";")[0].strip()
+FMT = "Allele|Consequence|IMPACT|SYMBOL|Feature|HGVSc|HGVSp|Existing_variation|CANONICAL|gnomADe_AF|CLIN_SIG"
+lines = []
+with gzip.open(a.input_file, "rt") as fh:
+    for l in fh:
+        if l.startswith("#CHROM"):
+            lines.append(f'##INFO=<ID=CSQ,Number=.,Type=String,Description="MOCK VEP. Format: {FMT}">\n')
+        if l.startswith("#"):
+            lines.append(l); continue
+        f = l.split("\t"); c, p, r, x = f[0], int(f[1]), f[3], f[4]
+        g = next((n for cc, s0, e0, n in GENES if cc == c and s0 <= p <= e0), "")
+        aa = p // 3
+        if len(r) == len(x):
+            csq, hp = "missense_variant", f"p.Arg{aa}His"
+        elif (len(r) - len(x)) % 3 == 0:
+            csq, hp = "inframe_deletion", f"p.Glu{aa}_Ala{aa+2}del"
+        else:
+            csq, hp = "frameshift_variant", f"p.Gly{aa}fs"
+        ann = "|".join([x, csq, "MODERATE", g, "ENST_MOCK", f"c.{p}{r}>{x}", f"ENSP:{hp}", "", "YES", COMMON.get((c, p), ""), ""])
+        f[7] = f[7] + ";CSQ=" + ann
+        lines.append("\t".join(f))
+with open(a.output_file[:-3] if a.output_file.endswith(".gz") else a.output_file, "w") as o:
+    o.writelines(lines)
+subprocess.run(["bgzip", "-f", a.output_file[:-3]], check=True)

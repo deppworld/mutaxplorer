@@ -1,0 +1,7 @@
+# Arriba ships its blacklists / known fusions / protein domains in $CONDA_PREFIX/var/lib/arriba
+name: mutaxplorer-arriba
+channels: [conda-forge, bioconda]
+dependencies:
+  - arriba>=2.4
+  - star>=2.7.10
+  - samtools>=1.20

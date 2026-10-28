@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use MutaXplorer, please cite it as below."
+type: software
+title: "MutaXplorer: comprehensive variant analysis for WGS, WES and targeted panels"
+abstract: >-
+  MutaXplorer is an open-source Nextflow pipeline for integrated DNA and RNA variant
+  analysis of whole-genome, whole-exome and targeted-panel sequencing. It accepts DNA
+  FASTQ or BAM (including DRAGEN / Illumina Connected Analytics output) and RNA FASTQ on
+  hg19 or hg38, and performs somatic (tumour-only or tumour-normal) and germline SNV/indel
+  calling (GATK Mutect2, HaplotypeCaller), copy-number analysis (CNVkit), structural-variant
+  calling (Manta), DNA and RNA fusion detection (Manta, STAR + Arriba), tumour mutational
+  burden, microsatellite instability (MSIsensor2), mutational signatures and sample-identity
+  checks. Results are annotated with Ensembl VEP and combined in cohort tables, an Excel
+  workbook and an interactive HTML report. Includes a simulated test suite and benchmark.
+version: 1.0.0
+date-released: 2026-10-28
+license: MIT
+repository-code: "https://github.com/deppworld/mutaxplorer"
+keywords:
+  - bioinformatics
+  - variant calling
+  - somatic mutations
+  - germline variants
+  - copy number
+  - structural variants
+  - gene fusions
+  - tumour mutational burden
+  - microsatellite instability
+  - Nextflow
+authors:
+  - given-names: "Deepak"
+    family-names: "Verma"
+    # affiliation: "Department, Institution, City, Country"
+    # orcid: "https://orcid.org/0000-0000-0000-0000"
+  # add every co-author below in the same format

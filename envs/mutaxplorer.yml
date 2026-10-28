@@ -1,0 +1,23 @@
+# MutaXplorer main environment (everything except VEP)
+#   conda env create -f envs/mutaxplorer.yml   (or let Nextflow build it with -profile conda)
+name: mutaxplorer
+channels: [conda-forge, bioconda]
+dependencies:
+  - nextflow>=24.04
+  - fastp>=0.23
+  - bwa-mem2>=2.2.1
+  - samtools>=1.20
+  - bcftools>=1.20
+  - htslib>=1.20
+  - gatk4>=4.5
+  - fgbio>=2.2
+  - mosdepth>=0.3.6
+  - msisensor2
+  - multiqc>=1.20
+  - git
+  - python>=3.10
+  - pandas>=2.0
+  - numpy
+  - scipy
+  - matplotlib>=3.7
+  - openpyxl

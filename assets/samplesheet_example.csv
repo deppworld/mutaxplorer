@@ -1,0 +1,4 @@
+patient,sample,status,fastq_1,fastq_2,bam
+PT01,PT01_tumor,tumor,/data/PT01_T_R1.fastq.gz,/data/PT01_T_R2.fastq.gz,
+PT01,PT01_normal,normal,/data/PT01_N_R1.fastq.gz,/data/PT01_N_R2.fastq.gz,
+PT02,PT02_tumor,tumor,,,/data/ica_downloads/PT02.bam

@@ -1,0 +1,13 @@
+work/
+results*/
+test_runs/
+tests/data/
+resources/
+.nextflow*
+*.bam
+*.bai
+*.fastq.gz
+*.vcf.gz
+*.tbi
+__pycache__/
+.DS_Store

@@ -1,0 +1,6 @@
+# Manta needs Python 2.7, so it lives in its own environment
+name: mutaxplorer-manta
+channels: [conda-forge, bioconda]
+dependencies:
+  - manta>=1.6.0
+  - htslib

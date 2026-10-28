@@ -1,0 +1,10 @@
+# Example: ~160 TSO500 BAMs produced by DRAGEN on ICA (hg19), tumor-only
+# nextflow run mutaxplorer -params-file assets/params_tso500_dragen_bams.yaml -profile conda
+input:        samplesheet_tso500.csv      # columns: patient,sample,status,bam
+genome:       hg19
+resource_dir: resources
+fasta:        /refs/tso500/genome.fa      # the FASTA DRAGEN used (required for imported BAMs)
+assay:        panel
+targets:      /refs/tso500/TST500C_manifest.bed
+analysis:     somatic
+outdir:       results_tso500

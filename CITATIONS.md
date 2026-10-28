@@ -1,0 +1,23 @@
+# Tools used by MutaXplorer — please cite them
+
+- **Nextflow** — Di Tommaso P, et al. Nextflow enables reproducible computational workflows. *Nat Biotechnol* 35, 316–319 (2017).
+- **fastp** — Chen S, et al. fastp: an ultra-fast all-in-one FASTQ preprocessor. *Bioinformatics* 34, i884–i890 (2018).
+- **BWA-MEM2** — Vasimuddin Md, et al. Efficient architecture-aware acceleration of BWA-MEM for multicore systems. *IEEE IPDPS* (2019).
+- **SAMtools / BCFtools / HTSlib** — Danecek P, et al. Twelve years of SAMtools and BCFtools. *GigaScience* 10, giab008 (2021).
+- **GATK** — McKenna A, et al. The Genome Analysis Toolkit. *Genome Res* 20, 1297–1303 (2010); Van der Auwera GA & O'Connor BD. *Genomics in the Cloud* (O'Reilly, 2020).
+- **Mutect2** — Benjamin D, et al. Calling somatic SNVs and indels with Mutect2. *bioRxiv* 861054 (2019).
+- **fgbio** — Fulcrum Genomics. https://github.com/fulcrumgenomics/fgbio
+- **mosdepth** — Pedersen BS & Quinlan AR. mosdepth: quick coverage calculation for genomes and exomes. *Bioinformatics* 34, 867–868 (2018).
+- **MSIsensor2** — Niu B, et al. https://github.com/niu-lab/msisensor2 ; MSIsensor: Niu B, et al. *Bioinformatics* 30, 1015–1016 (2014).
+- **Ensembl VEP** — McLaren W, et al. The Ensembl Variant Effect Predictor. *Genome Biol* 17, 122 (2016).
+- **MultiQC** — Ewels P, et al. MultiQC. *Bioinformatics* 32, 3047–3048 (2016).
+- **gnomAD** — Karczewski KJ, et al. The mutational constraint spectrum quantified from variation in 141,456 humans. *Nature* 581, 434–443 (2020).
+- **ClinVar** — Landrum MJ, et al. ClinVar: improving access to variant interpretations. *Nucleic Acids Res* 46, D1062–D1067 (2018).
+- **pandas / NumPy / SciPy / Matplotlib** — standard scientific Python stack.
+- **CNVkit** — Talevich E, et al. CNVkit: genome-wide copy number detection and visualization from targeted DNA sequencing. *PLoS Comput Biol* 12, e1004873 (2016).
+- **Manta** — Chen X, et al. Manta: rapid detection of structural variants and indels for germline and cancer sequencing applications. *Bioinformatics* 32, 1220–1222 (2016).
+- **STAR** — Dobin A, et al. STAR: ultrafast universal RNA-seq aligner. *Bioinformatics* 29, 15–21 (2013).
+- **Arriba** — Uhrig S, et al. Accurate and efficient detection of gene fusions from RNA sequencing data. *Genome Res* 31, 448–460 (2021).
+- **DNAcopy (CBS)** — Olshen AB, et al. Circular binary segmentation for the analysis of array-based DNA copy number data. *Biostatistics* 5, 557–572 (2004).
+- **COSMIC signatures** — Alexandrov LB, et al. The repertoire of mutational signatures in human cancer. *Nature* 578, 94–101 (2020).
+- **GENCODE** — Frankish A, et al. GENCODE: reference annotation for the human and mouse genomes in 2023. *Nucleic Acids Res* 51, D942–D949 (2023).

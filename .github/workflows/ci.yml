@@ -1,0 +1,18 @@
+# Runs the full MutaXplorer test suite (simulated data, ~15 min) on every push / pull request
+name: CI
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults: { run: { shell: bash -el {0} } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: conda-incubator/setup-miniconda@v3
+        with:
+          environment-file: envs/mutaxplorer.yml
+          activate-environment: mutaxplorer
+          miniforge-version: latest
+      - name: Install simulator
+        run: conda install -y -c bioconda wgsim cnvkit arriba star && conda create -y -n manta -c bioconda manta htslib && echo "$CONDA_PREFIX/../manta/bin" >> $GITHUB_PATH
+      - name: Run test suite
+        run: bash tests/run_tests.sh

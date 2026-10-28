@@ -1,0 +1,5 @@
+name: mutaxplorer-cnvkit
+channels: [conda-forge, bioconda]
+dependencies:
+  - cnvkit>=0.9.10
+  - samtools>=1.20
