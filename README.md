@@ -21,6 +21,12 @@ TMB, MSI, mutational signatures, sample-identity checks and QC.
    · oncoplot with SNV classes + CNV/fusion markers · Excel workbook · self-contained HTML report
 ```
 
+## Installation
+You need **Nextflow** (Java 17+) and **conda/mamba, Docker or Singularity**; every bioinformatics tool
+(GATK, CNVkit, Manta, STAR, Arriba, VEP, …) is then installed automatically. Windows users: run inside WSL2.
+Step-by-step instructions, system requirements, the full tool list and a 10-minute installation test are in
+**[INSTALL.md](INSTALL.md)**.
+
 ## Quick start
 ```bash
 git clone https://github.com/deppworld/mutaxplorer && cd mutaxplorer

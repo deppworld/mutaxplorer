@@ -12,8 +12,9 @@ for c, gl in {"chr1": [("KRAS", 10000), ("TP53", 40000), ("PIK3CA", 70000), ("EM
 # population AF: read from the test gnomAD VCF when MUTAXPLORER_MOCK_GNOMAD is set (tests/run_tests.sh sets it)
 import os
 COMMON = {}
-if os.environ.get("MUTAXPLORER_MOCK_GNOMAD"):
-    with gzip.open(os.environ["MUTAXPLORER_MOCK_GNOMAD"], "rt") as gf:
+_gn = os.environ.get("MUTAXPLORER_MOCK_GNOMAD") or os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "data", "gnomad.vcf.gz")
+if os.path.exists(_gn):
+    with gzip.open(_gn, "rt") as gf:
         for gl in gf:
             if gl[0] != "#":
                 x = gl.split("\t"); COMMON[(x[0], int(x[1]))] = x[7].split("AF=")[1].split(";")[0].strip()

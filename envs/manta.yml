@@ -1,6 +1,8 @@
-# Manta needs Python 2.7, so it lives in its own environment
+# Manta needs Python 2.7, so it lives in its own environment.
+# python is pinned: without the pin the solver can pick a placeholder "python 2.0" package without python2.
 name: mutaxplorer-manta
 channels: [conda-forge, bioconda]
 dependencies:
-  - manta>=1.6.0
+  - manta=1.6.0
+  - python=2.7
   - htslib
