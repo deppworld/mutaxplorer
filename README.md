@@ -21,6 +21,20 @@ TMB, MSI, mutational signatures, sample-identity checks and QC.
    · oncoplot with SNV classes + CNV/fusion markers · Excel workbook · self-contained HTML report
 ```
 
+## Example output
+Results from a **synthetic** 120-tumour panel cohort (simulated data, not patients). All figures, the full
+HTML report and the tables are in [`docs/example_report/`](docs/example_report/).
+
+![Oncoplot](docs/example_report/figures/fig1_oncoplot.png)
+
+| | |
+|---|---|
+| ![Top variants](docs/example_report/figures/fig2_top_variants.png) | ![TMB and MSI](docs/example_report/figures/fig5_tmb_msi.png) |
+| ![Copy-number events](docs/example_report/figures/cnv_recurrent_genes.png) | ![Fusions](docs/example_report/figures/fusions_recurrent.png) |
+| ![TP53 lollipop](docs/example_report/figures/fig6_lollipop_TP53.png) | ![Signature fit](docs/example_report/figures/signatures_exposures.png) |
+
+![SBS96 profile](docs/example_report/figures/signatures_sbs96.png)
+
 ## Installation
 You need **Nextflow** (Java 17+) and **conda/mamba, Docker or Singularity**; every bioinformatics tool
 (GATK, CNVkit, Manta, STAR, Arriba, VEP, …) is then installed automatically. Windows users: run inside WSL2.
