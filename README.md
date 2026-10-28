@@ -102,3 +102,4 @@ bash tests/run_tests.sh      # 4 scenarios, real tools, simulated truth (SNV, in
 
 ## Citation and licence
 Please cite the MutaXplorer manuscript (in preparation) and the tools in `CITATIONS.md`. MIT licence.
+
