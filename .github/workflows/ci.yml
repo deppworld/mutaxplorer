@@ -1,18 +1,61 @@
-# Runs the full MutaXplorer test suite (simulated data, ~15 min) on every push / pull request
+# Quick checks on every push / pull request (about 2 minutes):
+#   Python and shell syntax, Nextflow lint, and parsing of every configuration profile.
+# The full test suite (real tools on simulated data, about 30-40 minutes) runs only when started
+# by hand: GitHub -> Actions -> CI -> "Run workflow".
 name: CI
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
 jobs:
-  test:
+  checks:
     runs-on: ubuntu-latest
-    defaults: { run: { shell: bash -el {0} } }
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install Nextflow
+        run: |
+          curl -s https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+      - name: Python and shell syntax
+        run: |
+          python3 -m py_compile bin/*.py tests/*.py tests/bin/vep
+          for f in scripts/*.sh tests/*.sh docker/*.sh; do bash -n "$f"; done
+      - name: Nextflow lint
+        run: nextflow lint .
+      - name: Configuration profiles
+        run: |
+          for p in test conda docker singularity slurm; do
+            nextflow config -profile "$p" . > /dev/null && echo "profile $p OK"
+          done
+
+  test-suite:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    defaults:
+      run:
+        shell: bash -el {0}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
       - uses: conda-incubator/setup-miniconda@v3
         with:
+          miniforge-version: latest
           environment-file: envs/mutaxplorer.yml
           activate-environment: mutaxplorer
-          miniforge-version: latest
-      - name: Install simulator
-        run: conda install -y -c bioconda wgsim cnvkit arriba star && conda create -y -n manta -c bioconda manta htslib && echo "$CONDA_PREFIX/../manta/bin" >> $GITHUB_PATH
-      - name: Run test suite
-        run: bash tests/run_tests.sh
+      - name: Install Nextflow
+        run: |
+          curl -s https://get.nextflow.io | bash
+          sudo mv nextflow /usr/local/bin/
+      - name: Generate the simulated test data
+        run: python3 tests/simulate_test_data.py tests/data
+      - name: Run the test profile (Nextflow creates the tool environments with conda)
+        run: nextflow run . -profile test,conda -c tests/ci_limits.config --outdir results
